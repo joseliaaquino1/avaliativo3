@@ -1,0 +1,150 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <tempo.h>
+
+typedef struct Produto {
+  char nomeProduto[50];
+  int codigo;
+  int quantidade;
+ flutuar valorProduto;
+ struct Produto *próximo;
+} Produto;
+
+Produto *criarLista() { return NULL; }
+
+Produto *criarPessoa() {
+  Produto *novoProduto = (Produto *)malloc(sizeof(Produto));
+  if (novoProduto == NULL) {
+ printf("Erro de alocação de memória");
+ saída(EXIT_FAILURE);
+  }
+  novoProduto->proximo = NULL;
+ devolver novoProduto;
+}
+
+Produto *cadastrar(Produto *lista) {
+ srand(tempo(NULL));
+  Produto *novoProduto = criarPessoa();
+ Fflush(STDIN);
+  printf("Digite o nome do produto: \n");
+  fgets(novoProduto->nomeProduto, 50, stdin);
+  printf("Digite o código do produto:\n");
+  scanf("%d", &novoProduto->codigo);
+ Fflush(STDIN);
+  printf("Digite a quantidade:\n");
+  scanf("%d", &novoProduto->quantidade);
+  printf("Digite o valor unitário do produto:\n");
+  scanf("%f", &novoProduto->valorProduto);
+
+  if (lista == NULL) {
+ devolver novoProduto;
+  } else {
+    Produto *atual = lista;
+ enquanto (atual->proximo != NULL) {
+      atual = atual->proximo;
+    }
+    atual->proximo = novoProduto;
+ lista de retorno;
+  }
+}
+void mostrarLista(Produto *lista) {
+  Produto *atual = lista;
+  if (lista == NULL) {
+    printf("\nLista nula\n");
+ retornar;
+  } else {
+ enquanto (atual != NULL) {
+      printf("\nProduto: %s", atual->nomeProduto);
+      printf("\nCódigo do produto: %d", atual->codigo);
+      printf("\nQuantidade: %d", atual->quantidade);
+      printf("\nValor unitário: %.2f", atual->valorProduto);
+      atual = atual->proximo;
+    }
+  }
+}
+
+Produto *buscarPessoa(Produto *lista, int idBusca) {
+  Produto *atual = lista;
+ enquanto (atual != NULL) {
+    if (atual->codigo == idBusca) {
+      printf("\nProduto: %s", atual->nomeProduto);
+      printf("\nCódigo do produto: %d", atual->codigo);
+      printf("\nQuantidade: %d", atual->quantidade);
+      printf("\nValor unitário: %.2f", atual->valorProduto);
+ retorno atual;
+    }
+    atual = atual->proximo;
+  }
+ printf("Pessoa não encontrada");
+ retornar NULL;
+}
+Produto *excluir(Produto *lista, int idBusca) {
+  Produto *atual = lista;
+  Produto *anterior = NULL;
+
+  while (atual != NULL && atual->codigo != idBusca) {
+    anterior = atual;
+    atual = atual->proximo;
+  }
+  if (atual != NULL) {
+    if (anterior != NULL) {
+
+      anterior->proximo = atual->proximo;
+    } else {
+      lista = atual->proximo;
+    }
+ livre (atual);
+    printf("Removido com sucesso");
+  } else {
+ printf("Pessoa não encontrada");
+  }
+ lista de retorno;
+}
+
+void liberarLista(Produto *lista) {
+  Produto *atual = lista;
+ Produto *próximo;
+ enquanto (atual != NULL) {
+    proximo = atual->proximo;
+ livre (atual);
+ atual = próximo;
+  }
+}
+
+int main() {
+ int opção;
+  int idBusca;
+  Produto *lista = criarLista();
+  Produto *encontrada;
+ fazer {
+ Fflush(STDIN);
+    printf("Digite 1 para cadstrar um novo produto\n");
+    printf("Digite 2 para mostrar as pessoas cadastradas\n");
+    printf("Digite 3 para por produtos cadastrados\n");
+    printf("Digite 4 para excluir um produto cadastrado\n");
+    printf("Digite 0 para sair\n");
+ scanf("%d", &opção);
+ Fflush(STDIN);
+    if (opcao == 1) {
+      lista = cadastrar(lista);
+    } else if (opcao == 2) {
+      mostrarLista(lista);
+    } else if (opcao == 3) {
+      printf("Digite o id para busca");
+      scanf("%d", &idBusca);
+      encontrada = buscarPessoa(lista, idBusca);
+    } else if (opcao == 4) {
+ printf("\nDigite o id para exclusão");
+      scanf("%d", &idBusca);
+      lista = excluir(lista, idBusca);
+    } else if (opcao == 0) {
+      printf("Finalizando a aplicação");
+    }else{
+      printf("Opção invalida");
+    }
+ } enquanto (opcao != 0);
+
+  liberarLista(lista);
+ retorno 0;
+}
